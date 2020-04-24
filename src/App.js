@@ -4,22 +4,25 @@ import logo from './logo.png';
 import './App.css';
 
 class App extends Component {
-  state = {
-    results: [],
-    query: ""
-  }
 
   constructor(props) {
     super(props);
+    this.state = { results: [], query: "" };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
     this.setState( { query: event.target.value } );
-    this.callwiki();
+    this.searchWiki();
   }
 
-  callwiki() {
+  handleSubmit(event) {
+    event.preventDefault();
+    this.searchWiki();
+  }
+
+  searchWiki() {
     fetch("https://simple.wikipedia.org/w/api.php?origin=*&action=opensearch&search=" + this.state.query + "&limit=10&namespace=0&format=json")
     .then(res => res.json())
     .then((data) => {
@@ -30,18 +33,23 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.callwiki()
+    this.searchWiki()
   }
 
   render() {
     return (
+      <React.Fragment>
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
+          <form onSubmit={this.handleSubmit}>
           <input type="text" name="query" className="App-search-wiki" onChange={this.handleChange} value={this.state.query} />
-          <input type="submit" className="App-search-submit btn" />
+          <input type="submit" onSubmit={this.handleSubmit} className="App-search-submit btn" />
+          </form>
         </header>
       </div>
+        <Results results={this.state.results} />
+      </React.Fragment>
     );
   }
 }
