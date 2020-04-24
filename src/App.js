@@ -41,11 +41,14 @@ class App extends Component {
       <React.Fragment>
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <form onSubmit={this.handleSubmit}>
-          <input type="text" name="query" className="App-search-wiki" onChange={this.handleChange} value={this.state.query} />
-          <input type="submit" onSubmit={this.handleSubmit} className="App-search-submit btn" />
-          </form>
+          <div className="container-sm">
+            <img src={logo} className="App-logo" alt="logo" />
+            <form onSubmit={this.handleSubmit} className="">
+              <label htmlFor="query" hidden>Search Wikipedia</label>
+              <input type="text" name="query" className="App-search-wiki form-control" onChange={this.handleChange} value={this.state.query} />
+              <input type="submit" onSubmit={this.handleSubmit} className="App-search-submit btn" value="Search" />
+            </form>
+          </div>
         </header>
       </div>
         <Results results={this.state.results} />
