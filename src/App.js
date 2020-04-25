@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
+import Images from './components/images.js';
 import Results from './components/results.js';
+import Search from './components/search.js';
 import logo from './logo.png';
 import './App.css';
 
@@ -56,14 +58,10 @@ class App extends Component {
           <header className="App-header">
             <div className="container-sm">
               <img src={logo} className="App-logo" alt="logo" />
-              <form onSubmit={this.handleSubmit} >
-                <label htmlFor="query" hidden>Search Wikipedia</label>
-                <input type="text" name="query" className="App-search-wiki form-control" onChange={this.handleChange} value={this.state.query} />
-                <input type="submit" onSubmit={this.handleSubmit} className="App-search-submit btn" value="Search" />
-              </form>
             </div>
           </header>
         </div>
+        <Search query={this.state.query} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
         <Results results={this.state.results} handleClick={this.handleClick} />
       </React.Fragment>
     );
