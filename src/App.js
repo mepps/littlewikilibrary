@@ -10,6 +10,7 @@ class App extends Component {
     this.state = { results: [], query: "" };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange(event) {
@@ -20,6 +21,18 @@ class App extends Component {
   handleSubmit(event) {
     event.preventDefault();
     this.searchWiki();
+  }
+
+  handleClick(event) {
+    console.log(event.currentTarget.href)
+    event.preventDefault();
+    fetch(event.currentTarget.href)
+    .then(res => res.json())
+    .then((data) => {
+      var images = data.items;
+      console.log(images);
+    })
+    .catch(console.log)
   }
 
   searchWiki() {
@@ -39,19 +52,19 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-      <div className="App">
-        <header className="App-header">
-          <div className="container-sm">
-            <img src={logo} className="App-logo" alt="logo" />
-            <form onSubmit={this.handleSubmit} className="">
-              <label htmlFor="query" hidden>Search Wikipedia</label>
-              <input type="text" name="query" className="App-search-wiki form-control" onChange={this.handleChange} value={this.state.query} />
-              <input type="submit" onSubmit={this.handleSubmit} className="App-search-submit btn" value="Search" />
-            </form>
-          </div>
-        </header>
-      </div>
-        <Results results={this.state.results} />
+        <div className="App">
+          <header className="App-header">
+            <div className="container-sm">
+              <img src={logo} className="App-logo" alt="logo" />
+              <form onSubmit={this.handleSubmit} >
+                <label htmlFor="query" hidden>Search Wikipedia</label>
+                <input type="text" name="query" className="App-search-wiki form-control" onChange={this.handleChange} value={this.state.query} />
+                <input type="submit" onSubmit={this.handleSubmit} className="App-search-submit btn" value="Search" />
+              </form>
+            </div>
+          </header>
+        </div>
+        <Results results={this.state.results} handleClick={this.handleClick} />
       </React.Fragment>
     );
   }
