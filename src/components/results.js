@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Images from './images.js';
 
 class Results extends Component {
   render() {
