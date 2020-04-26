@@ -3,6 +3,7 @@ import { render } from '@testing-library/react';
 import Images from './images';
 
 test('renders image description', () => {
+	const name = "Albatross";
 	const images = [
 	  {
 		section_id: 0, 

@@ -9,7 +9,7 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { results: [], query: "" };
+    this.state = { results: [], query: "", images: [] };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -26,15 +26,31 @@ class App extends Component {
   }
 
   handleClick(event) {
-    console.log(event.currentTarget.href)
     event.preventDefault();
     fetch(event.currentTarget.href)
     .then(res => res.json())
     .then((data) => {
-      var images = data.items;
-      console.log(images);
+      for (var index in data.items) {
+          this.getImageUrl(data.items[index], index);
+        }
+        this.setState({images: data.items})
     })
     .catch(console.log)
+  }
+
+  getImageUrl(image, index) {
+    fetch("http://en.wikipedia.org/w/api.php?origin=*&action=query&titles=" + image.title + "&prop=imageinfo&iiprop=url&format=json")
+      .then(res => res.json())
+      .then((data) => {
+        var url = Object.values(data.query.pages)[0].imageinfo[0].url;
+        this.setState( prevState =>
+            { let images = Object.assign({}, prevState.images);
+              images[index].url = url;
+              return images;
+            }
+          );
+      })
+      .catch(console.log) 
   }
 
   searchWiki() {
@@ -42,7 +58,6 @@ class App extends Component {
     .then(res => res.json())
     .then((data) => {
       this.setState({ results: data })
-      console.log(data)
     })
     .catch(console.log)
   }
@@ -63,6 +78,7 @@ class App extends Component {
         </div>
         <Search query={this.state.query} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
         <Results results={this.state.results} handleClick={this.handleClick} />
+        <Images images={this.state.images} />
       </React.Fragment>
     );
   }
