@@ -3,7 +3,9 @@ import { SayButton } from 'react-say';
 
 class Images extends Component {
   selector(voices) {
-  	return voices.find(v => v.lang==="en-US")
+    var english = voices.find(v => v.name==="english");
+    console.log(voices);
+  	return english;
   }
   render() {
   	return (
@@ -16,7 +18,8 @@ class Images extends Component {
 			  <SayButton
 			    onClick={ event => console.log(event) }
 			    text={image.caption.text}
-			    voice={this.selector} >
+			    voice={this.selector}
+          pitch="5" >
   	  	   		<img src={image.url} height="100px" width="100px" />
 			  </SayButton>	  
 			  </div>	   
