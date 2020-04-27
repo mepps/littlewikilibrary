@@ -34,15 +34,20 @@ class App extends Component {
           this.getImageUrl(data.items[index], index);
         }
         this.setState({images: data.items})
+
     })
     .catch(console.log)
-  }
+    }
 
   getImageUrl(image, index) {
     fetch("http://en.wikipedia.org/w/api.php?origin=*&action=query&titles=" + image.title + "&prop=imageinfo&iiprop=url&format=json")
       .then(res => res.json())
       .then((data) => {
-        var url = Object.values(data.query.pages)[0].imageinfo[0].url;
+        var url = "";
+        var page = Object.values(data.query.pages)[0];
+        if ("imageinfo" in page) {
+          url = Object.values(data.query.pages)[0].imageinfo[0].url;
+        }
         this.setState( prevState =>
             { let images = Object.assign({}, prevState.images);
               images[index].url = url;

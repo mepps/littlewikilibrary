@@ -11,18 +11,18 @@ class Images extends Component {
   	return (
   	  <div className="images">
   	  {this.props.images.map((image, index) =>
-  	  	 <div key={index}>
+  	  	 <div className ="card" key={index}>
   	  	   {(image.hasOwnProperty("caption") &&
-  	  	   	<div>
-	  	     <p>{image.caption.text}</p>
-			  <SayButton
-			    onClick={ event => console.log(event) }
-			    text={image.caption.text}
-			    voice={this.selector}
-          pitch="5" >
-  	  	   		<img src={image.url} height="100px" width="100px" />
-			  </SayButton>	  
-			  </div>	   
+            <div className="card-body">
+    			  <SayButton
+    			    onClick={ event => console.log(event) }
+    			    text={image.caption.text}
+    			    voice={this.selector}
+              pitch={1.0} >
+      	  	   		<img src={image.url} className="card-img-top" />
+    			  </SayButton>
+            <p className="card-text">{image.caption.text}</p>
+    			  </div>
 	  	   )}
 	  </div>
   	  )}
