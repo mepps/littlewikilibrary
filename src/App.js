@@ -78,6 +78,9 @@ class App extends Component {
           <header className="App-header">
             <div className="container-sm">
               <img src={logo} className="App-logo" alt="logo" />
+              <h1>Lil Wiki Library</h1>
+              <h2>Search for Wikipedia images by page</h2>
+              <h2>Made for fun</h2>
             </div>
           </header>
         </div>
