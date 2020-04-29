@@ -40,7 +40,7 @@ class App extends Component {
     }
 
   getImageUrl(image, index) {
-    fetch("http://en.wikipedia.org/w/api.php?origin=*&action=query&titles=" + image.title + "&prop=imageinfo&iiprop=url&format=json")
+    fetch("https://en.wikipedia.org/w/api.php?origin=*&action=query&titles=" + image.title + "&prop=imageinfo&iiprop=url&format=json")
       .then(res => res.json())
       .then((data) => {
         var url = "";
