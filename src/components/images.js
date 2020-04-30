@@ -1,30 +1,26 @@
 import React, { Component } from 'react';
-import { SayButton } from 'react-say';
+import Speech from 'react-speech';
 
 class Images extends Component {
-  selector(voices) {
-    var english = voices.find(v => v.name==="english");
-    console.log(voices);
-  	return english;
+  displayText(imageurl) {
+    return <img src={imageurl} className="card-img-top" />
   }
   render() {
   	return (
   	  <div className="images">
   	  {this.props.images.map((image, index) =>
   	  	 <div className ="card" key={index}>
+          
   	  	   {(image.hasOwnProperty("caption") &&
             <div className="card-body">
-    			  <SayButton
-    			    onClick={ event => console.log(event) }
-    			    text={image.caption.text}
-    			    voice={this.selector}
-              pitch={1.0} >
-      	  	   		<img src={image.url} className="card-img-top" />
-    			  </SayButton>
+    			  <Speech
+              textAsButton="true"
+              displayText={this.displayText(image.url)}
+    			    text={image.caption.text} />
             <p className="card-text">{image.caption.text}</p>
     			  </div>
 	  	   )}
-	  </div>
+      	 </div>
   	  )}
   	  </div>
   	)
