@@ -10,12 +10,10 @@ class Images extends Component {
   	  <div className="images">
   	  {this.props.images.map((image, index) =>
   	  	 <div className ="card" key={index}>
-          
   	  	   {(image.hasOwnProperty("caption") &&
             <div className="card-body">
     			  <Speech
-              pitch="1.5"
-              lang ="en-US"
+              pitch="2.0"
               textAsButton="true"
               displayText={this.displayText(image.url)}
     			    text={image.caption.text} />
