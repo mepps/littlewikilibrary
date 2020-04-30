@@ -38,7 +38,7 @@ class App extends Component {
 
     })
     .catch(console.log)
-    }
+  }
 
   getImageUrl(image, index) {
     fetch("https://en.wikipedia.org/w/api.php?origin=*&action=query&titles=" + image.title + "&prop=imageinfo&iiprop=url&format=json")
