@@ -9,7 +9,7 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { results: [], query: "", images: [] };
+    this.state = { results: [], query: "", images: [], headerStyle: {} };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -23,6 +23,7 @@ class App extends Component {
   handleSubmit(event) {
     event.preventDefault();
     this.searchWiki();
+    this.setState({headerStyle: {display: "none"}});
   }
 
   handleClick(event) {
@@ -77,10 +78,10 @@ class App extends Component {
         <div className="App">
           <header className="App-header">
             <div className="container-sm">
-              <img src={logo} className="App-logo" alt="logo" />
+              <img src={logo} className="App-logo" alt="logo" style={this.state.headerStyle} />
               <h1>Lil Wiki Library</h1>
-              <h2>Search for Wikipedia images by page</h2>
-              <h2>Made for fun</h2>
+              <h2 style={this.state.headerStyle}>Search for Wikipedia images by page</h2>
+              <h2 style={this.state.headerStyle}>Made for fun</h2>
             </div>
           </header>
         </div>
