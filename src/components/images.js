@@ -14,6 +14,8 @@ class Images extends Component {
   	  	   {(image.hasOwnProperty("caption") &&
             <div className="card-body">
     			  <Speech
+              pitch="1.5"
+              lang ="en-US"
               textAsButton="true"
               displayText={this.displayText(image.url)}
     			    text={image.caption.text} />
