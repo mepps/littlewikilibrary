@@ -84,8 +84,8 @@ class App extends Component {
           <header className="App-header">
             <div className="container-sm">
               <img src={logo} className="App-logo" alt="logo" style={this.state.headerStyle} />
-              <h1>Lil Wiki Library</h1>
-              <h2 style={this.state.headerStyle}>Search for Wikipedia images by page</h2>
+              <h1>Lil Wiki</h1>
+              <h2 style={this.state.headerStyle}>Search for Wikipedia images and hear the captions</h2>
               <h2 style={this.state.headerStyle}>Made for fun</h2>
             </div>
           </header>
