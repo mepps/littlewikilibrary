@@ -9,6 +9,7 @@ class Images extends Component {
   	return (
   	  <div className="images">
         <button onClick={this.props.close}>← Back to results</button>
+        <h1 class="text-center">{this.props.result}</h1>
   	  {this.props.images.map((image, index) =>
   	  	 <div className ="card" key={index}>
   	  	   {(image.hasOwnProperty("caption") &&

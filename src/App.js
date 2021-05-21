@@ -9,7 +9,7 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { results: [], query: "", images: [], headerStyle: {}, showImages: false };
+    this.state = { results: [], query: "", images: [], headerStyle: {}, showImages: false, result: '' };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -27,16 +27,16 @@ class App extends Component {
     this.setState({headerStyle: {display: "none"}});
   }
 
-  handleClick(event) {
-    event.preventDefault();
-    fetch(event.currentTarget.href)
+  handleClick(result, e) {
+    e.preventDefault();
+    fetch(e.currentTarget.href)
     .then(res => res.json())
     .then((data) => {
+      console.log(data);
       for (var index in data.items) {
           this.getImageUrl(data.items[index], index);
         }
-      this.setState({images: data.items, showImages: true})
-
+      this.setState({images: data.items, showImages: true, result: result})
     })
     .catch(console.log)
   }
@@ -95,7 +95,7 @@ class App extends Component {
           <Results results={this.state.results}  handleClick={this.handleClick} />
         }
         { this.state.showImages && 
-          <Images close={this.closeImages} images={this.state.images} />
+          <Images close={this.closeImages} result={this.state.result} images={this.state.images} />
        }
       </React.Fragment>
     );
