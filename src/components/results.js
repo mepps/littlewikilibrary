@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 
 class Results extends Component {
+  
+
   render() {
     if ( Array.isArray(this.props.results) && this.props.results.length > 1 ) {
       return (

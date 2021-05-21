@@ -9,14 +9,15 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { results: [], query: "", images: [], headerStyle: {} };
+    this.state = { results: [], query: "", images: [], headerStyle: {}, showImages: false };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.closeImages = this.closeImages.bind(this);
   }
 
   handleChange(event) {
-    this.setState( { query: event.target.value } );
+    this.setState( { query: event.target.value, showImages: false } );
     this.searchWiki();
   }
 
@@ -34,10 +35,14 @@ class App extends Component {
       for (var index in data.items) {
           this.getImageUrl(data.items[index], index);
         }
-        this.setState({images: data.items})
+      this.setState({images: data.items, showImages: true})
 
     })
     .catch(console.log)
+  }
+
+  closeImages() {
+    this.setState({showImages: false});
   }
 
   getImageUrl(image, index) {
@@ -86,8 +91,12 @@ class App extends Component {
           </header>
         </div>
         <Search query={this.state.query} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
-        <Results results={this.state.results} handleClick={this.handleClick} />
-        <Images images={this.state.images} />
+        { !this.state.showImages &&
+          <Results results={this.state.results}  handleClick={this.handleClick} />
+        }
+        { this.state.showImages && 
+          <Images close={this.closeImages} images={this.state.images} />
+       }
       </React.Fragment>
     );
   }
