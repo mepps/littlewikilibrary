@@ -8,7 +8,7 @@ class Images extends Component {
   render() {
   	return (
   	  <div className="images">
-        <button onClick={this.props.close}>← Back to results</button>
+        <button class="btn btn-secondary" onClick={this.props.close}>← Back to results</button>
         <h1 class="text-center">{this.props.result}</h1>
   	  {this.props.images.map((image, index) =>
   	  	 <div className ="card" key={index}>

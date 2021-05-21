@@ -29,6 +29,7 @@ class App extends Component {
 
   handleClick(result, e) {
     e.preventDefault();
+    this.setState({headerStyle: {display: "none"}});
     fetch(e.currentTarget.href)
     .then(res => res.json())
     .then((data) => {
