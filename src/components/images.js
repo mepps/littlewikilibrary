@@ -5,11 +5,15 @@ class Images extends Component {
   displayText(imageurl) {
     return <img src={imageurl} className="card-img-top" />
   }
+  backButton() {
+    return <button class="btn btn-secondary" onClick={this.props.close}>← Back to results</button>
+        
+  }
   render() {
   	return (
   	  <div className="images">
-        <button class="btn btn-secondary" onClick={this.props.close}>← Back to results</button>
-        <h1 class="text-center">{this.props.result}</h1>
+      <h1 class="text-center">{this.props.result}</h1>
+      {this.backButton()}
   	  {this.props.images.map((image, index) =>
   	  	 <div className ="card" key={index}>
   	  	   {(image.hasOwnProperty("caption") &&
@@ -24,6 +28,7 @@ class Images extends Component {
 	  	   )}
       	 </div>
   	  )}
+      {this.backButton()}
   	  </div>
   	)
   }
