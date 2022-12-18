@@ -14,6 +14,21 @@ class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.closeImages = this.closeImages.bind(this);
+    this.handleParameters();
+  }
+
+  handleParameters() {
+    this.queryParameters = new URLSearchParams(window.location.search);
+    const result = this.queryParameters.get("result");
+    const query = this.queryParameters.get("query");
+    if (result && result.length > 0) {
+      this.getImages(result);
+    }
+    if (query) {
+      this.state.query = query;
+      this.searchWiki();
+    }
+
   }
 
   handleChange(event) {
@@ -21,29 +36,31 @@ class App extends Component {
     this.searchWiki();
   }
 
+ handleClick(result, e) {
+    e.preventDefault();
+    this.getImages(result);
+  }
+
+
   handleSubmit(event) {
     event.preventDefault();
     this.searchWiki();
     this.setState({headerStyle: {display: "none"}});
   }
 
-  handleClick(result, e) {
-    e.preventDefault();
+  getImages(result) {
     this.setState({headerStyle: {display: "none"}});
-    fetch(e.currentTarget.href)
+    let url = "https://en.wikipedia.org/api/rest_v1/page/media-list/" + result;
+    fetch(url)
     .then(res => res.json())
     .then((data) => {
-      console.log(data);
       for (var index in data.items) {
           this.getImageUrl(data.items[index], index);
         }
       this.setState({images: data.items, showImages: true, result: result})
     })
     .catch(console.log)
-  }
 
-  closeImages() {
-    this.setState({showImages: false});
   }
 
   getImageUrl(image, index) {
@@ -63,6 +80,10 @@ class App extends Component {
           );
       })
       .catch(console.log) 
+  }
+
+  closeImages() {
+    this.setState({showImages: false});
   }
 
   searchWiki() {

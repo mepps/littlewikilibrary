@@ -11,7 +11,7 @@ class Results extends Component {
             {this.props.results[1].map((result, index) => (
               <div className="card" key={"result-" + index}>
                 <div className="card-body">
-                  <a href={"https://en.wikipedia.org/api/rest_v1/page/media-list/" + result} onClick={(e) => this.props.handleClick(result, e)}>
+                  <a href="" onClick={(e) => this.props.handleClick(result, e)}>
                     <h5 className="card-title">{result}</h5>
                     </a>
                 </div>
