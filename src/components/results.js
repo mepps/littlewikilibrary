@@ -6,7 +6,7 @@ class Results extends Component {
   render() {
     if ( Array.isArray(this.props.results) && this.props.results.length > 1 ) {
       return (
-        <div>
+        <div className="container">
           <center><h1>Results</h1></center>
             {this.props.results[1].map((result, index) => (
               <div className="card" key={"result-" + index}>
