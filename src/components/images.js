@@ -11,8 +11,8 @@ class Images extends Component {
     }      
   }
   render() {
-    let display = this.props.images.reduce(image => image.url).length > 0;
-    console.log('display', display);
+    let imageUrlsExist = this.props.images.reduce(image => image.url);
+    let display = imageUrlsExist && imageUrlsExist.length > 0;
   	return (
   	  <div className="images container">
       <h1 class="text-center">{this.props.result}</h1>
