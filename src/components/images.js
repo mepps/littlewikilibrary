@@ -11,22 +11,22 @@ class Images extends Component {
     }      
   }
   render() {
-    let imageUrlsExist = this.props.images.reduce(image => image.url);
+    let imageUrlsExist = this.props.images.reduce(image => image.hasOwnProperty('url'));
     let display = imageUrlsExist && imageUrlsExist.length > 0;
   	return (
   	  <div className="images container">
-      <h1 class="text-center">{this.props.result}</h1>
+      <h1 className="text-center">{this.props.result}</h1>
       {this.backButton(display)}
   	  {this.props.images.map((image, index) =>
   	  	 <div className ="card" key={index}>
   	  	   {(image.hasOwnProperty("caption") &&
             <div className="card-body">
-    			  <Speech
-              pitch="2.0"
-              textAsButton="true"
-              displayText={this.displayText(image.url)}
-    			    text={image.caption.text} />
-            <p className="card-text">{image.caption.text}</p>
+              <Speech
+                pitch="2.0"
+                textAsButton="true"
+                displayText={this.displayText(image.url)}
+                text={image.caption.text} />
+              <p className="card-text">{image.caption.text}</p>
     			  </div>
 	  	   )}
       	 </div>
