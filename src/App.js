@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect} from 'react';
 import Images from './components/images.js';
 import Results from './components/results.js';
 import Search from './components/search.js';
@@ -14,21 +14,19 @@ class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.closeImages = this.closeImages.bind(this);
-    this.handleParameters();
   }
 
   handleParameters() {
-    this.queryParameters = new URLSearchParams(window.location.search);
+    this.queryParameters = new URLSearchParams(window.location.hash.substring(1));
     const result = this.queryParameters.get("result");
     const query = this.queryParameters.get("query");
     if (result && result.length > 0) {
       this.getImages(result);
     }
-    if (query) {
+    if (query && query.length > 0) {
       this.state.query = query;
       this.searchWiki();
     }
-
   }
 
   handleChange(event) {
@@ -36,17 +34,17 @@ class App extends Component {
     this.searchWiki();
   }
 
- handleClick(result, e) {
-    e.preventDefault();
-    this.getImages(result);
-  }
-
-
   handleSubmit(event) {
     event.preventDefault();
     this.searchWiki();
     this.setState({headerStyle: {display: "none"}});
   }
+
+ handleClick(result, e) {
+    e.preventDefault();
+    this.getImages(result);
+  }
+
 
   getImages(result) {
     this.setState({headerStyle: {display: "none"}});
@@ -58,9 +56,10 @@ class App extends Component {
           this.getImageUrl(data.items[index], index);
         }
       this.setState({images: data.items, showImages: true, result: result})
-    })
+      this.queryParameters.set("result", this.state.result);
+      window.location.hash = this.queryParameters.toString();
+      })
     .catch(console.log)
-
   }
 
   getImageUrl(image, index) {
@@ -84,19 +83,24 @@ class App extends Component {
 
   closeImages() {
     this.setState({showImages: false});
+    this.queryParameters.set("result", "");
+    window.location.hash = this.queryParameters.toString();
   }
 
   searchWiki() {
     fetch("https://simple.wikipedia.org/w/api.php?origin=*&action=opensearch&search=" + this.state.query + "&limit=10&namespace=0&format=json")
     .then(res => res.json())
     .then((data) => {
-      this.setState({ results: data })
+      this.setState({ results: data });
+      console.log(this.state.query);
+      this.queryParameters.set("query", this.state.query);
+      window.location.hash = this.queryParameters.toString();
     })
     .catch(console.log)
   }
-
+  
   componentDidMount() {
-    this.searchWiki()
+    this.handleParameters();    
   }
 
   render() {
