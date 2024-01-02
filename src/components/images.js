@@ -11,7 +11,7 @@ class Images extends Component {
     }      
   }
   render() {
-    let imageUrlsExist = this.props.images.reduce(image => image.hasOwnProperty('url'));
+    let imageUrlsExist = this.props.images.filter(image => image.hasOwnProperty('url'));
     let display = imageUrlsExist && imageUrlsExist.length > 0;
   	return (
   	  <div className="images container">
