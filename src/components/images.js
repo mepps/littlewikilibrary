@@ -7,8 +7,8 @@ class Images extends Component {
   }
   backButton(display) {
     if (display){
-      return <button class="btn btn-secondary" onClick={this.props.close}>← Back to results</button>
-    }      
+      return <button className="btn btn-secondary" onClick={this.props.close}>← Back to results</button>
+    }
   }
   render() {
     let imageUrlsExist = this.props.images.filter(image => image.hasOwnProperty('url'));

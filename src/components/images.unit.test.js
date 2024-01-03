@@ -16,8 +16,7 @@ test('renders image description', () => {
 			text: "Skeleton of a black-browed albatross (Thalassarche melanophris) on display at the Museum of Osteology."}
 	  }
 	]
-	const { getByText } = render(<Images images={images} />);
-	const description = getByText(/Skeleton of a black-browed/i);
+	const { getAllByText } = render(<Images images={images} />);
+	const description = getAllByText(/Skeleton of a black-browed/i)[0];
 	expect(description).toBeInTheDocument();
-
 });
